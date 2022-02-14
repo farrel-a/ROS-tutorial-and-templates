@@ -1,0 +1,5 @@
+<launch>
+
+    <node pkg="cleaning_path_robot" type="clean.py" name="clean_node" output="screen"></node>
+    <node pkg="turtlesim" type="turtlesim_node" name="turtlesim_node" > </node>
+</launch>
