@@ -1,0 +1,4 @@
+<launch>
+    <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_stage_4.launch" />
+    <node name="robot_node" pkg="bug0_navigation_submission" type="robot.py" respawn="false" output="screen" />
+</launch>
