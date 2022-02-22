@@ -50,27 +50,43 @@ def scan(msg):
     global rotating, following_wall, around_wall, rotate_left, straight_wall
     arr = msg.ranges
     clear = True
-    for i in range(0, 360):
-        around_wall = True
-        if (arr[i] < 0.37):
-            if (0<=i<=90 and not rotating):
-                #rotate right
-                print("right")
-                rotate_left = False
-                rotating = True
-                clear = False
-            elif (270<=i<=359 and not rotating):
-                #rotate left
-                print("left")
-                rotate_left = True
-                rotating = True
-                clear = False
+    if (not straight_wall):
+        for i in range(0, 360):
+            around_wall = True
+            if (arr[i] < 0.37):
+                if (0<=i<=90 and not rotating and not straight_wall):
+                    #rotate right
+                    print("right")
+                    rotate_left = False
+                    rotating = True
+                    clear = False
+                elif (270<=i<=359 and not rotating and not straight_wall):
+                    #rotate left
+                    print("left")
+                    rotate_left = True
+                    rotating = True
+                    clear = False
 
-    if (not rotating and around_wall and clear):
-        straight_wall = False
-        around_wall = False
-        rotating = False
-        following_wall = False
+        if (not rotating and around_wall and clear):
+            straight_wall = False
+            around_wall = False
+            rotating = False
+            following_wall = False
+    elif (straight_wall):
+        clear_left = True
+        clear_right = True
+        for i in range(0, 91):
+            if arr[i] < 0.37:
+                clear_left = False
+        for i in range(270,360):
+            if arr[i] < 0.37:
+                clear_right = False
+        if (clear_left and clear_right):
+            straight_wall = False
+            around_wall = False
+            rotating = False
+            following_wall = False
+            print("safe")
 
 
 def go_straight():
